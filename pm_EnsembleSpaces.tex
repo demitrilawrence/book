@@ -4055,6 +4055,95 @@ This satisfies the axioms as they currently stand. The example has a few peculia
 
 This also shows that it is not true that open sets, if sufficiently small, do not contain boundary points. That is, in infinite dimensions is likely that all open sets will contain boundary points.
 
+\subsection{Disk refined by parabolic open sets}
+
+TODO: add remark about the purpose of this counterexample.
+
+\begin{example}[Disk refined by parabolic open sets]
+	Let $\Ens$ be the unit disk with the standard Euclidean topology, which is an ensemble space. Denote $\ens[e] = (0,1) \in \Ens$. Refine the topology of $\Ens$ by adding open sets of the form $\{\ens[e]\} \cup \{(x,y) \in \Ens \mid x^2 < \varepsilon(1-y)\}$ for all $\varepsilon > 0$. We verify that $\Ens$ satisfies the ensemble space axioms.
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			\def\radius{2}
+			\def\epsilon{0.25}
+			
+			\begin{scope}
+				\clip (0,0) circle (\radius);
+				
+				\fill [black!10!white, domain=-\radius:\radius, samples=100, variable=\x] plot ({\x},{\radius-\x*\x/\epsilon});
+				
+				\draw [black, dashed, domain=-\radius:\radius, samples=100, variable=\x] plot ({\x}, {\radius-\x*\x/\epsilon});
+			\end{scope}
+			
+			\draw [] (0,0) circle (\radius);
+			
+			\filldraw [black] (0,\radius) circle (1pt);
+		\end{tikzpicture}
+		\caption{Disk refined by parabolic open sets.}
+	\end{figure}
+	
+	With the refined topology, $\Ens$ is a non-empty $\mathsf{T}_0$ second countable topological space, satisfying the axiom of ensemble. 
+	
+	Equip $\Ens$ with the standard mixing operation. The algebraic properties of mixing are independent of topology, so it suffices to show continuity of mixing. Away from $\ens[e]$, the refined topology is equivalent to the standard topology, so we consider continuity of mixing approaching $\ens[e]$. Since $\Ens$ is second countable, we show sequential continuity.
+	
+	Suppose $\ens[a]_i = (a_{1_i},a_{2_i})$, $\ens[b]_i = (b_{1_i},b_{2_i}) \in \Ens$ and $p_i \in [0,1]$ are convergent sequences, where $\ens[a]_i \to \ens[a]$, $\ens[b]_i \to \ens[b]$, and $p_i \to p \in [0,1]$, with $p\ens[a] + \bar{p}\ens[b] = \ens[e]$. By continuity of mixing in the standard topology, it is sufficient to demonstrate that $p_i\ens[a]_i + \bar{p}_i\ens[b]_i$ eventually lies in each parabolic open set. If $p = 1$, then $\ens[a] = \ens[e]$ must hold, so for all $\varepsilon > 0$ we have $a_{1_i}^2 < \varepsilon(1-a_{2_i})$ eventually. Note that $b_{1_i}^2 \le 1 - b_{2_i}^2 \le 2(1 - b_{2_i})$ on the unit disk and $2\bar{p}_i < \varepsilon$ eventually. Putting this together, we get
+	\begin{equation}
+		\begin{aligned}
+			(p_ia_{1_i} + \bar{p}_ib_{1_i})^2 
+			&\le 2(p_ia_{1_i})^2 + 2(\bar{p}_ib_{1_i})^2 \\
+			&< 2p_i^2\varepsilon(1 - a_{2_i}) + 4\bar{p}_i^2(1 - b_{2_i}) \\ 
+			&< 2p_i\varepsilon(1 - a_{2_i}) + 2\bar{p}_i\varepsilon(1 - b_{2_i}) \\
+			&= 2\varepsilon(1 - (p_ia_{2_i} + \bar{p}_ib_{2_i}))
+		\end{aligned}
+	\end{equation}
+	for sufficiently large $i$, so $p_i\ens[a]_i+\bar{p}_i\ens[b]_i \to \ens[e]$ in the refined topology. The same result holds if $p = 0$.
+	
+	Now, suppose $p \in (0,1)$. Then it must be the case that $\ens[a] = \ens[b] = \ens[e]$. That is, for all $\varepsilon > 0$, we have $a_{1_i}^2 < \varepsilon(1-a_{2_i})$ and $b_{1_i}^2 < \varepsilon(1-b_{2_i})$ eventually. Thus,
+	\begin{equation}
+		\begin{aligned}
+			(p_ia_{1_i}+\bar{p}_ib_{1_i})^2 &\le p_ia_{1_i}^2 + \bar{p}_ib_{1_i}^2 \\
+			&< p_i\varepsilon(1 - a_{2_i}) + \bar{p}_i\varepsilon(1 - b_{2_i}) \\
+			&= \varepsilon(1 - (p_ia_{2_i} + \bar{p}_ib_{2_i}))
+		\end{aligned}
+	\end{equation}
+	for sufficiently large $i$, so $p_i\ens[a]_i+\bar{p}_i\ens[b]_i \to \ens[e]$ in the refined topology. Consequently, the axiom of mixture is fulfilled.
+	
+	Finally, the axiom of entropy still holds for a refinement in topology since any entropy $S : \Ens \to \mathbb{R}$ on the disk remains continuous.
+	
+	\begin{figure}[H]
+		\centering
+		\begin{tikzpicture}
+			\def\radius{2}
+			\def\epsilon{0.25}
+			
+			\begin{scope}
+				\clip (0,0) circle (\radius);
+				
+				\fill [black!10!white, domain=-\radius:\radius, samples=100, variable=\x] plot ({\x},{\radius-\x*\x/\epsilon});
+				
+				\draw [black, dashed, domain=-\radius:\radius, samples=100, variable=\x] plot ({\x}, {\radius-\x*\x/\epsilon});
+			\end{scope}
+			
+			\draw [] (0,0) circle (\radius);
+			
+			\filldraw [black] (0,\radius) circle (1pt);
+			
+			\filldraw [black] (0,0) circle (1pt);
+			\filldraw [black] (0,\radius/2) circle (1pt);
+			
+			\foreach \i in {0,45,60,70,78,85} {
+				\filldraw [black] ({\i}:\radius) circle (1pt);
+				\filldraw [black] ({\i}:\radius/2) circle (1pt);
+				\draw [dashed,black] (0,0) -- ({\i}:\radius);
+			}
+		\end{tikzpicture}
+		\caption{The sequence in the interior converges, while the sequence of affine combinations on the boundary does not converge.}
+	\end{figure}
+	
+	If $\ens[a]_i = \left(\frac{1}{2}\cos(\frac{\pi}{2} - \frac{1}{i}), \frac{1}{2}\sin(\frac{\pi}{2} - \frac{1}{i})\right)$, then $\lim\limits_{i \to \infty}(\ens[a]_i) = \left(0, \frac{1}{2}\right)$ in $\Ens$. However, the sequence of affine combinations $2\ens[a]_i + (-1)(0,0) = \left(\cos(\frac{\pi}{2} - \frac{1}{i}), \sin(\frac{\pi}{2} - \frac{1}{i})\right)$ does not converge in $\Ens$ because $\cos(\frac{\pi}{2} - \frac{1}{i})^2 \ge 1 - \sin(\frac{\pi}{2} - \frac{1}{i})$ for all $i$, so $2\ens[a]_i + (-1)(0,0)$ does not eventually fall in every parabolic open neighborhood of $\ens[e]$. Thus, since $2\ens[a]_i + (-1)(0,0)$ converges to $\ens[e]$ in the standard topology, $2\ens[a]_i + (-1)(0,0)$ cannot converge in $\Ens$. Therefore, affine combinations are not always continuous in $\Ens$.
+\end{example}
+
 \section{Lessons learned}
 
 This section summarizes insights from previous attempts that failed. We collect them here for reference.
